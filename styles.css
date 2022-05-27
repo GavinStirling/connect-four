@@ -27,7 +27,12 @@ body {
 }
 .game__description {
   height: 10vh;
+  width: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .game__board {
   text-align: center;
@@ -41,6 +46,7 @@ body {
   align-items: center;
 }
 .game__disc {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
