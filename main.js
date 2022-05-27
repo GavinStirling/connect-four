@@ -6,7 +6,7 @@ const setBoard = (boardSize) => {
   console.log("setBoard called");
 
   const board = [];
-  const array = new Array(boardSize).fill(0);
+  const array = Array(boardSize).fill(0);
 
   for (let index = 0; index < boardSize + 1; index++) {
     board.push(array);
@@ -33,15 +33,23 @@ const newGame = (gridSize) => {
   return setBoard(gridSize);
 };
 
-const boardArr = setBoard(gridSize);
+const boardArr = [
+  [1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0],
+  [2, 0, 0, 0, 0],
+  [3, 0, 0, 0, 0],
+  [4, 0, 0, 0, 0],
+  [5, 0, 0, 0, 0],
+];
+
+// const boardArr = setBoard(gridSize);
+
 setColumnLabels(boardArr);
+boardArr[2][3] = 4;
+console.log(boardArr);
 
-console.log(boardArr[2][3]);
-
-const selectColumn = (event) => {
-  const columnText = event.target.innerText;
+const selectColumn = (columnText) => {
   let column = 0;
-  let row = 0;
 
   if (columnText === "Col. 1") {
     column = 1;
@@ -60,45 +68,48 @@ const selectColumn = (event) => {
 
 const selectRow = (column) => {
   let row;
-  let pos = boardArr.length - 1;
 
-  boardArr.forEach((row) => {
-    if (row[column] != 0) {
-      row = 6 - pos;
-      pos--;
-    } else {
-      return row;
+//   let pos = 5;
+
+//   boardArr.forEach((row) => {
+//     if (row[column] != 0) {
+//       row = 6 - pos;
+//       pos--;
+//     } else if (row[column] === 0) {
+//       return row;
+//     }
+//   });
+
+    for (let index = boardArr.length; index >= 0; index--) {
+        console.log(boardArr[index][column-1])
+        // if (boardArr[index][column] != 0) {
+        //     row = index + 1;
+        // } else {
+        //     return row;
+        // }
     }
-  });
 
-  // for (let index = boardArr.length; index >= 0; index--) {
-  //     if (boardArr[index][column] === 0) {
-  //         row = index + 1;
-  //         break;
-  //     } else {
-  //         continue;
-  //     }
-  // }
   return row;
 };
 
-const dropDisc = (event) => {
-//   console.log(event);
-  const column = selectColumn(event);
+const getNewDiscPos = (event) => {
+  console.log(selectColumn(event.target.innerText));
+  const column = selectColumn(event.target.innerText);
   const row = selectRow(column);
-  console.log[boardArr[row]];
-  gameBoard.innerHTML += `
-      <div class="game__disc" style = "
-      grid-column: ${column};
-      grid-row: ${row};
-      ">Disc</div>`;
+  console.log(column, row);
 
-  //   boardArr[row-1][column-1] = 1;
-  
+  //   gameBoard.innerHTML +=    `<div class="game__disc"
+  //                             style = "grid-column: ${column};
+  //                             grid-row: ${row};
+  //                             ">Disc</div>`;
+
+  //   boardArr[row - 1][column - 1] = 1;
 };
+
+
 
 const columnsArray = Array.from(columns);
 
 columnsArray.forEach((column) => {
-  column.addEventListener("click", dropDisc);
+  column.addEventListener("click",(getNewDiscPos));
 });
