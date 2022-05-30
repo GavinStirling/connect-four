@@ -45,6 +45,12 @@ body {
   justify-content: center;
   align-items: center;
 }
+.game__blocks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .game__disc {
   text-align: center;
   display: flex;

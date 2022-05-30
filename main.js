@@ -3,20 +3,26 @@ const gameBoard = document.querySelector(".game__board");
 const columns = document.getElementsByClassName("game__columns");
 const reset = document.querySelector(".game__reset");
 
-const setBoard = (boardSize) => {
-    console.log("setBoard called");
+const setGrid = (gridSize) => {
+    console.log("setGrid called");
 
     const board = [];
-    const array = Array(boardSize).fill(0);
+    const bools = Array(gridSize).fill(false);
+    // board.push(bools);
+    // console.log(bools);
+    const array = Array(gridSize).fill(0);
+    // console.log(array);
 
-    for (let index = 0; index < boardSize + 1; index++) {
+    for (let index = 0; index < gridSize; index++) {
         board.push(array);
+        // console.log(board);
     }
+    board.unshift(bools);
     return board;
 };
 
-const setColumnLabels = (boardArr) => {
-    console.log("setColumnLabels called");
+const setBoard = (boardArr) => {
+    console.log("setBoard called");
     for (let index = 0; index < boardArr[0].length; index++) {
         gameBoard.innerHTML += `<div class="game__columns" style = "
         grid-column: ${index + 1};
@@ -25,26 +31,28 @@ const setColumnLabels = (boardArr) => {
     }
 
     for (let x = 1; x < boardArr.length; x++) {
-      for (let y = 0; y < boardArr[x].length; y++) {
-        gameBoard.innerHTML += `<div id="Block-${x}-${y}" style = "
-        grid-column: ${y+1};
-        grid-row: ${x+1};"
+        for (let y = 0; y < boardArr[x].length; y++) {
+            gameBoard.innerHTML += `<div id="Block-${x}-${y}" class="game__blocks" style = "
+        grid-column: ${y + 1};
+        grid-row: ${x + 1};"
         >Block ${x} ${y}</div>`;
-      }
+        }
     }
 };
 
 // --------------------------------- Game Play Functions ---------------------------- //
 
 const gridSize = 5;
+const boardArr = setGrid(gridSize);
+
 
 const newGame = (gridSize) => {
     console.log("newGame called");
-    setColumnLabels();
-    return setBoard(gridSize);
+    setGrid(gridSize);
+    setBoard(gridSize);
 };
 
-const boardArr = [
+const testArr = [
     [false, false, false, false, false],
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -53,8 +61,9 @@ const boardArr = [
     [0, 0, 0, 0, 0],
 ];
 
-// const boardArr = setBoard(gridSize);
-setColumnLabels(boardArr);
+setBoard(boardArr);
+console.log(boardArr);
+console.log(testArr);
 
 const selectColumn = (columnText) => {
     let column = 0;
@@ -87,18 +96,21 @@ const selectRow = (column) => {
     }
 };
 
-const getNewDiscPos = (event) => {
+const placeDisc = (event) => {
     console.log("Selected column no. " + selectColumn(event.target.innerText));
     const column = selectColumn(event.target.innerText);
     const row = selectRow(column);
-    const targetDiv = document.querySelector(`#Block-${row-1}-${column-1}`);
+    const targetDiv = document.querySelector(`#Block-${row - 1}-${column - 1}`);
     console.log(row, column);
+    console.log(row - 1, column - 1);
+    // console.log(targetDiv.innerText);
+    console.log(boardArr[0][column - 1]);
     if (boardArr[0][column - 1] === false) {
         
         boardArr[row - 1][column - 1] = 1;
         targetDiv.innerHTML += insertDiscHTML(row, column);
     } else if (boardArr[0][column - 1] === true) {
-        console.log("This column is full");
+        alert("This column is full. Please select another.");
     }
 
     console.log(boardArr);
@@ -108,10 +120,12 @@ const insertDiscHTML = (row, column) => {
     return `<div class="game__disc"style = "grid-column: ${column}; grid-row: ${row};">Disc</div>`;
 };
 
+const checkWin = () => {};
+
 const columnsArray = Array.from(columns);
 
 columnsArray.forEach((column) => {
-    column.addEventListener("click", getNewDiscPos);
+    column.addEventListener("click", placeDisc);
 });
 
 // reset.addEventListener("click", newGame(5));

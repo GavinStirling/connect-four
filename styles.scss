@@ -52,6 +52,13 @@ body {
         align-items: center;
     }
 
+    &__blocks {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     &__disc {
         text-align: center;
         display: flex;
