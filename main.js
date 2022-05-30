@@ -33,7 +33,7 @@ const setBoard = (boardArr) => {
             gameBoard.innerHTML += `<div id="Block-${x}-${y}" class="game__blocks" style = "
         grid-column: ${y + 1};
         grid-row: ${x + 1};"
-        >Block ${x} ${y}</div>`;
+        >Block ${x + 1} ${y + 1}</div>`;
         }
     }
 };
@@ -45,7 +45,7 @@ const gridSize = 5;
 let turns = 1;
 const boardArr = setGrid(gridSize);
 setBoard(boardArr);
-console.log(boardArr)
+console.log(boardArr);
 
 const newGame = (gridSize) => {
     console.log("newGame called");
@@ -53,55 +53,49 @@ const newGame = (gridSize) => {
     setBoard(gridSize);
 };
 
-
 const selectColumn = (columnText) => {
     for (let index = 0; index < boardArr.length; index++) {
-      if (columnText === `Col. ${index+1}`) {
-        return index +1;
-      } 
+        if (columnText === `Col. ${index + 1}`) {
+            return index + 1;
+        }
     }
 };
 
 const selectRow = (column) => {
     if (boardArr[1][column - 1] === 0) {
         for (let index = boardArr.length - 1; index >= 0; index--) {
-            console.log(boardArr[index][column - 1]);
             if (boardArr[index][column - 1] === 0) {
                 return index + 1;
             }
         }
-    } else if (boardArr[1][column - 1] === 1) {
+    } else if (boardArr[1][column - 1] != 0) {
         boardArr[0][column - 1] = true;
     }
 };
 
 const placeDisc = (event) => {
-    console.log("Selected column no. " + selectColumn(event.target.innerText));
-
-
     const column = selectColumn(event.target.innerText);
+
     const row = selectRow(column);
     const targetDiv = document.querySelector(`#Block-${row - 1}-${column - 1}`);
 
+    // console.log("Selected column no. " + column);
+    // console.log(row, column);
 
-    console.log(row, column);
-    console.log(row - 1, column - 1);
-    console.log(boardArr[0][column - 1]);
-
-    
     if (!boardArr[0][column - 1]) {
-      if (turns%2 === 1){
-        boardArr[row - 1][column - 1] = 1;
-        console.log(boardArr);
-        targetDiv.innerHTML += insertPlayerDiscHTML(row, column);
-      } else {
-        boardArr[row - 1][column - 1] = 2;
-        console.log(boardArr);
-        targetDiv.innerHTML += insertComputerDiscHTML(row, column);
-      }
-      turns+=1;
-        
-    } else if (boardArr[0][column - 1]) {
+        if (turns % 2 === 1) {
+            boardArr[row - 1][column - 1] = 1;
+            // console.log(boardArr);
+            targetDiv.innerHTML += insertPlayerDiscHTML(row, column);
+            checkWin(); 
+        } else {
+            boardArr[row - 1][column - 1] = 2;
+            console.log(boardArr);
+            targetDiv.innerHTML += insertComputerDiscHTML(row, column);
+            checkWin();
+        }
+        turns += 1;
+    } else {
         alert("This column is full. Please select another.");
     }
 };
@@ -111,10 +105,55 @@ const insertPlayerDiscHTML = (row, column) => {
 };
 
 const insertComputerDiscHTML = (row, column) => {
-  return `<div class="game__computer-disc"style = "grid-column: ${column}; grid-row: ${row};">Disc</div>`;
+    return `<div class="game__computer-disc"style = "grid-column: ${column}; grid-row: ${row};">Disc</div>`;
 };
 
-const checkWin = () => {};
+const checkLine = (a,b,c,d) => {
+  return ((a != 0) && (a == b) && (a == c) && (a == d))
+}
+
+
+
+
+
+const checkWin = () => {
+  // Check down
+  for (let row = 0; row < gridSize-2; row++) {
+    for (let column = 0; column < boardArr[row].length; column++) {
+      if (checkLine(boardArr[row][column],boardArr[row+1][column],boardArr[row+2][column],boardArr[row+3][column])) {
+        alert(`Player ${boardArr[row][column]} wins!`)
+      }
+    }
+  }
+  // Check right
+  for (let row = 0; row < boardArr.length; row++) {
+    for (let column = 0; column < boardArr[row].length-2; column++) {
+      if (checkLine(boardArr[row][column],boardArr[row][column+1],boardArr[row][column+2],boardArr[row][column+3])) {
+        alert(`Player ${boardArr[row][column]} wins!`)
+      }
+    }
+  }
+
+  // Check down and right
+  for (let row = 0; row < gridSize-2; row++) {
+    for (let column = 0; column < boardArr[row].length-2; column++) {
+      if (checkLine(boardArr[row][column],boardArr[row+1][column+1],boardArr[row+2][column+2],boardArr[row+3][column+3])) {
+        alert(`Player ${boardArr[row][column]} wins!`)
+      }
+    }
+  }
+
+  // Check down and left
+  for (let row = gridSize-1; row <= gridSize; row++) {
+    for (let column = 0; column < boardArr[row].length-2; column++) {
+      if (checkLine(boardArr[row][column],boardArr[row-1][column+1],boardArr[row-2][column+2],boardArr[row-3][column+3])) {
+        alert(`Player ${boardArr[row][column]} wins!`)
+      }
+    }
+  }
+
+};
+
 
 
 
