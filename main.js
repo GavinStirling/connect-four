@@ -8,16 +8,17 @@ const setGrid = (gridSize) => {
 
     const board = [];
     const bools = Array(gridSize).fill(false);
-    // board.push(bools);
-    // console.log(bools);
-    const array = Array(gridSize).fill(0);
+    board.push(bools);
+    console.log(bools);
+
     // console.log(array);
 
     for (let index = 0; index < gridSize; index++) {
+        const array = Array(gridSize).fill(0);
         board.push(array);
-        // console.log(board);
     }
-    board.unshift(bools);
+
+    // board.unshift(bools);
     return board;
 };
 
@@ -44,7 +45,6 @@ const setBoard = (boardArr) => {
 
 const gridSize = 5;
 const boardArr = setGrid(gridSize);
-
 
 const newGame = (gridSize) => {
     console.log("newGame called");
@@ -106,14 +106,12 @@ const placeDisc = (event) => {
     // console.log(targetDiv.innerText);
     console.log(boardArr[0][column - 1]);
     if (boardArr[0][column - 1] === false) {
-        
         boardArr[row - 1][column - 1] = 1;
+        console.log(boardArr);
         targetDiv.innerHTML += insertDiscHTML(row, column);
     } else if (boardArr[0][column - 1] === true) {
         alert("This column is full. Please select another.");
     }
-
-    console.log(boardArr);
 };
 
 const insertDiscHTML = (row, column) => {
