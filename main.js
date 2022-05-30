@@ -1,4 +1,4 @@
-// Declaring Variables
+// Declaring variables which connect the JS and HTML
 const gameBoard = document.querySelector(".game__board");
 const columns = document.getElementsByClassName("game__columns");
 const reset = document.querySelector(".game__reset");
@@ -9,9 +9,6 @@ const setGrid = (gridSize) => {
     const board = [];
     const bools = Array(gridSize).fill(false);
     board.push(bools);
-    console.log(bools);
-
-    // console.log(array);
 
     for (let index = 0; index < gridSize; index++) {
         const array = Array(gridSize).fill(0);
@@ -41,10 +38,14 @@ const setBoard = (boardArr) => {
     }
 };
 
-// --------------------------------- Game Play Functions ---------------------------- //
+// -------------------- Game Play variables and Functions ---------------------------- //
 
+// Declaring Gameplay variables
 const gridSize = 5;
+let turns = 1;
 const boardArr = setGrid(gridSize);
+setBoard(boardArr);
+console.log(boardArr)
 
 const newGame = (gridSize) => {
     console.log("newGame called");
@@ -52,35 +53,13 @@ const newGame = (gridSize) => {
     setBoard(gridSize);
 };
 
-const testArr = [
-    [false, false, false, false, false],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-];
-
-setBoard(boardArr);
-console.log(boardArr);
-console.log(testArr);
 
 const selectColumn = (columnText) => {
-    let column = 0;
-
-    if (columnText === "Col. 1") {
-        column = 1;
-    } else if (columnText === "Col. 2") {
-        column = 2;
-    } else if (columnText === "Col. 3") {
-        column = 3;
-    } else if (columnText === "Col. 4") {
-        column = 4;
-    } else if (columnText === "Col. 5") {
-        column = 5;
+    for (let index = 0; index < boardArr.length; index++) {
+      if (columnText === `Col. ${index+1}`) {
+        return index +1;
+      } 
     }
-
-    return column;
 };
 
 const selectRow = (column) => {
@@ -98,27 +77,48 @@ const selectRow = (column) => {
 
 const placeDisc = (event) => {
     console.log("Selected column no. " + selectColumn(event.target.innerText));
+
+
     const column = selectColumn(event.target.innerText);
     const row = selectRow(column);
     const targetDiv = document.querySelector(`#Block-${row - 1}-${column - 1}`);
+
+
     console.log(row, column);
     console.log(row - 1, column - 1);
-    // console.log(targetDiv.innerText);
     console.log(boardArr[0][column - 1]);
-    if (boardArr[0][column - 1] === false) {
+
+    
+    if (!boardArr[0][column - 1]) {
+      if (turns%2 === 1){
         boardArr[row - 1][column - 1] = 1;
         console.log(boardArr);
-        targetDiv.innerHTML += insertDiscHTML(row, column);
-    } else if (boardArr[0][column - 1] === true) {
+        targetDiv.innerHTML += insertPlayerDiscHTML(row, column);
+      } else {
+        boardArr[row - 1][column - 1] = 2;
+        console.log(boardArr);
+        targetDiv.innerHTML += insertComputerDiscHTML(row, column);
+      }
+      turns+=1;
+        
+    } else if (boardArr[0][column - 1]) {
         alert("This column is full. Please select another.");
     }
 };
 
-const insertDiscHTML = (row, column) => {
-    return `<div class="game__disc"style = "grid-column: ${column}; grid-row: ${row};">Disc</div>`;
+const insertPlayerDiscHTML = (row, column) => {
+    return `<div class="game__player-disc"style = "grid-column: ${column}; grid-row: ${row};">Disc</div>`;
+};
+
+const insertComputerDiscHTML = (row, column) => {
+  return `<div class="game__computer-disc"style = "grid-column: ${column}; grid-row: ${row};">Disc</div>`;
 };
 
 const checkWin = () => {};
+
+
+
+// ---------------------------- Event Listeners ------------------------------------ //
 
 const columnsArray = Array.from(columns);
 
