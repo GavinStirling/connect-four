@@ -53,10 +53,13 @@ body {
     }
 
     &__blocks {
+        height: 5em;
+        width: 5em;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        border: 1px black solid;
     }
 
     &__player-disc {
@@ -70,13 +73,13 @@ body {
         border-radius: 50%;
     }
     &__computer-disc {
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 5em;
-      width: 5em;
-      background-color: green;
-      border-radius: 50%;
-  }
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 5em;
+        width: 5em;
+        background-color: green;
+        border-radius: 50%;
+    }
 }
