@@ -1,0 +1,8 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.game__heading {
+    height: 5vh;
+    margin: 0.5em;
+    text-align: center;
+}

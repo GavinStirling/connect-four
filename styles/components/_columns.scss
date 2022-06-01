@@ -1,0 +1,11 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.game__columns {
+    height: 100%;
+    width: 100%;
+
+    @include centerSelfRow;
+
+    border: 1px solid black;
+}

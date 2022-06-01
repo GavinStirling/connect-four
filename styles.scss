@@ -1,70 +1,14 @@
 @use "./styles/core/reset";
 
+@use "./styles/layouts/body";
+@use "./styles/layouts/game";
+@use "./styles/layouts/board";
+
+@use "./styles/components/heading";
+@use "./styles/components/description";
+
+
+@use "./styles/components/columns";
+@use "./styles/components/blocks";
 @use "./styles/components/player-disc";
 @use "./styles/components/computer-disc";
-
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.game {
-    height: 90vh;
-    width: 90%;
-
-    margin: 0.5em;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    font-family: "Source Sans Pro", sans-serif;
-
-    &__heading {
-        height: 5vh;
-        margin: 0.5em;
-        text-align: center;
-    }
-
-    &__description {
-        height: 10vh;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-
-    &__board {
-
-        width: 100%;
-        height: 100%;
-        margin: 6em 1em 1em;
-        display: grid;
-        grid: repeat(5, 1fr ) / repeat(5, 1fr);
-        gap: 0.25em;
-  
-        place-items: center;
-
-    }
-
-    &__blocks {
-        height: 5em;
-        width: 5em;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        border: 1px black solid;
-    }
-
-
-    
-
-
-
-}

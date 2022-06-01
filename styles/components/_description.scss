@@ -1,0 +1,9 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.game__description {
+    height: 10vh;
+    width: 100%;
+    text-align: center;
+    @include centerSelfRowEvenly();
+}
