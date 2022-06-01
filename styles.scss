@@ -1,6 +1,7 @@
-// @import "./styles/abstracts/variables";
+@use "./styles/core/reset";
 
-// @import "./styles/core/all" as *;
+@use "./styles/components/player-disc";
+@use "./styles/components/computer-disc";
 
 body {
     display: flex;
@@ -61,27 +62,9 @@ body {
         border: 1px black solid;
     }
 
-    &__player-disc {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 5em;
-        width: 5em;
-        background-color: red;
-        border-radius: 50%;
-    }
+
     
 
 
-    &__computer-disc {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 5em;
-        width: 5em;
-        background-color: green;
-        border-radius: 50%;
-    }
+
 }

@@ -1,2 +1,10 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
+.game__player-disc {
 
+    height: 5em;
+    width: 5em;
+    background-color: red;
+    border-radius: 50%;
+}
