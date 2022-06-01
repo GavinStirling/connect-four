@@ -2,6 +2,8 @@
 const gameBoard = document.querySelector(".game__board");
 const columns = document.getElementsByClassName("game__columns");
 const newGameButton = document.querySelector(".game__reset");
+// const columnNodes = document.querySelectorAll(".game__columns");
+// console.log(columnNodes);
 
 const setGrid = (gridSize) => {
     console.log("setGrid called");
@@ -46,19 +48,47 @@ const blockLabels = (x, y) => {
 
 // Declaring Gameplay variables
 const gridSize = 5;
-let turns = 1;
-const boardArr = setGrid(gridSize);
-console.log(boardArr);
-setBoard(boardArr);
+let turns;
+let boardArr = [];
 
 const newGame = () => {
     console.log("newGame Called");
+
+
     turns = 1;
-    const newGrid = setGrid(gridSize);
+    boardArr = setGrid(gridSize);
     setBoard(boardArr);
-    console.log(newGrid);
-    return newGrid;
+
+    console.log(columns);
+    console.log(turns, boardArr);
 };
+
+const resetGame = () => {
+    console.log("resetGame Called");
+
+    turns = 1;
+
+    for (let x = 0; x < boardArr.length; x++) {
+        for (let y = 0; y < boardArr[y].length; y++) {
+            if (boardArr[x][y] === true) {
+                boardArr[x][y] =false;
+            } else if (boardArr[x][y] === 1 || boardArr[x][y] === 2){
+                boardArr[x][y] = 0;
+            }
+        }
+        
+    }
+
+    for (let x = 1; x < boardArr.length; x++) {
+        for (let y = 0; y < boardArr[x].length; y++) {
+            const targetDiv = document.querySelector(`#Block-${x}-${y}`);
+            targetDiv.innerHTML = "";
+            targetDiv.innerHTML += blockLabels(x, y);
+        }
+    }
+}
+
+newGame();
 
 const selectColumn = (columnText) => {
     for (let index = 0; index < boardArr.length; index++) {
@@ -180,11 +210,13 @@ const checkWin = () => {
 };
 
 // ---------------------------- Event Listeners ------------------------------------ //
+newGameButton.addEventListener("click", resetGame);
 
 const columnsArray = Array.from(columns);
-
 columnsArray.forEach((column) => {
     column.addEventListener("click", placeDisc);
 });
 
-newGameButton.addEventListener("click", newGame);
+// columnNodes.forEach((node) => {
+//     node.addEventListener("click", placeDisc);
+// })
