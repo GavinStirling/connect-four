@@ -3,4 +3,5 @@
 
 body {
     @include centerSelfColumn();
+    background-color: $color-primary-background;
 }

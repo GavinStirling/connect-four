@@ -2,13 +2,11 @@
 @use "../abstracts/mixins" as *;
 
 .game__blocks {
-    height: 100%;
-    width: 100%;
+    height: $size-hundred-percent;
+    width: $size-hundred-percent;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include centerSelfRow;
+    @include addStdBorder;
 
-    border: 1px black solid;
+    background-color: $colour-primary-blocks;
 }

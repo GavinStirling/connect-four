@@ -2,11 +2,8 @@
 const gameBoard = document.querySelector(".game__board");
 const columns = document.getElementsByClassName("game__columns");
 const newGameButton = document.querySelector(".game__reset");
-// const columnNodes = document.querySelectorAll(".game__columns");
-// console.log(columnNodes);
 
 const setGrid = (gridSize) => {
-    console.log("setGrid called");
     const board = [];
     const bools = Array(gridSize).fill(false);
     board.push(bools);
@@ -19,7 +16,6 @@ const setGrid = (gridSize) => {
 
 const setBoard = (boardArr) => {
     gameBoard.innerHTML = "";
-    console.log("setBoard called");
     for (let index = 0; index < boardArr[0].length; index++) {
         gameBoard.innerHTML += columnLabels(index);
     }
@@ -52,31 +48,22 @@ let turns;
 let boardArr = [];
 
 const newGame = () => {
-    console.log("newGame Called");
-
-
     turns = 1;
     boardArr = setGrid(gridSize);
     setBoard(boardArr);
-
-    console.log(columns);
-    console.log(turns, boardArr);
 };
 
 const resetGame = () => {
-    console.log("resetGame Called");
-
     turns = 1;
 
     for (let x = 0; x < boardArr.length; x++) {
         for (let y = 0; y < boardArr[y].length; y++) {
             if (boardArr[x][y] === true) {
-                boardArr[x][y] =false;
-            } else if (boardArr[x][y] === 1 || boardArr[x][y] === 2){
+                boardArr[x][y] = false;
+            } else if (boardArr[x][y] === 1 || boardArr[x][y] === 2) {
                 boardArr[x][y] = 0;
             }
         }
-        
     }
 
     for (let x = 1; x < boardArr.length; x++) {
@@ -86,7 +73,7 @@ const resetGame = () => {
             targetDiv.innerHTML += blockLabels(x, y);
         }
     }
-}
+};
 
 newGame();
 
@@ -112,7 +99,6 @@ const selectRow = (column) => {
 
 const placeDisc = (event) => {
     const column = selectColumn(event.target.innerText);
-
     const row = selectRow(column);
     const targetDiv = document.querySelector(`#Block-${row - 1}-${column - 1}`);
 
@@ -191,7 +177,6 @@ const checkWin = () => {
             }
         }
     }
-
     // Check down and left
     for (let row = gridSize - 1; row <= gridSize; row++) {
         for (let column = 0; column < boardArr[row].length - 2; column++) {
@@ -216,7 +201,3 @@ const columnsArray = Array.from(columns);
 columnsArray.forEach((column) => {
     column.addEventListener("click", placeDisc);
 });
-
-// columnNodes.forEach((node) => {
-//     node.addEventListener("click", placeDisc);
-// })

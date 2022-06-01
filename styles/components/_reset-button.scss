@@ -1,0 +1,14 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.game__reset {
+    height: 3em;
+    width: 9em;
+
+    border-radius: 25%;
+
+    color: $color-primary-font;
+    background-color: $color-primary-button;
+
+    font-family: $font-primary;
+}

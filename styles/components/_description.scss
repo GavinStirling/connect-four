@@ -3,7 +3,9 @@
 
 .game__description {
     height: 10vh;
-    width: 100%;
+    width: $size-hundred-percent;
     text-align: center;
     @include centerSelfRowEvenly();
+
+    color: $color-primary-font;
 }
