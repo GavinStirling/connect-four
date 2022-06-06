@@ -2,10 +2,12 @@
 @use "../abstracts/mixins" as *;
 
 .game__description {
-    height: 10vh;
+    height: 20vh;
+    width: 40%;
     width: $size-hundred-percent;
     text-align: center;
     @include centerSelfRowEvenly();
+    
 
     color: $color-primary-font;
 }

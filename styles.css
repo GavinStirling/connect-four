@@ -40,7 +40,8 @@ body {
 }
 
 .game__description {
-  height: 10vh;
+  height: 20vh;
+  width: 40%;
   width: 100%;
   text-align: center;
   display: flex;
@@ -48,6 +49,11 @@ body {
   align-items: center;
   text-align: center;
   color: white;
+}
+
+.game__instructions {
+  height: 100%;
+  width: 60%;
 }
 
 .game__reset {
