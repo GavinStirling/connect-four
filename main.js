@@ -1,8 +1,12 @@
-// Declaring variables which connect the JS and HTML
+// -------------------- Variables ---------------------------- //
+// These variables are connected to the elements in index.html using DOM
 const gameBoard = document.querySelector(".game__board");
 const columns = document.getElementsByClassName("game__columns");
 const newGameButton = document.querySelector(".game__reset");
 
+
+// -------------------- Functions used to Declare  ---------------------------- //
+// Functions use 
 const setGrid = (gridSize) => {
     const board = [];
     const bools = Array(gridSize).fill(false);
@@ -37,7 +41,8 @@ const blockLabels = (x, y) => {
     return `<div id="Block-${x}-${y}" class="game__blocks" style = "
         grid-column: ${y + 1};
         grid-row: ${x + 1};"
-        >Block ${x + 1} ${y + 1}</div>`;
+        ></div>`;
+        // To ensure that there are labels on each block - Block ${x + 1} ${y + 1}
 };
 
 // -------------------- Game Play variables and Functions ---------------------------- //
