@@ -12,3 +12,5 @@ The goal for this project is to demonstrate my understanding and competence when
 The brief was to develop a working game and have the game be able to reset without refreshing the page.
 
 It makes use of a nested array to track two players who drop discs into columns with the aim to connect four in a row of the same colour.
+
+The game can be found on Github Pages here: https://gavinstirling.github.io/connect-four/!
